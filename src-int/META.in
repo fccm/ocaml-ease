@@ -1,0 +1,24 @@
+description = "Managing evolution of int values over time as int"
+version = "@VERSION@"
+
+package "iease" (
+  description = "Easing functions for ints"
+  exists_if = "iease.cma"
+
+  archive(byte) = "iease.cma"
+  archive(native) = "iease.cmxa"
+  archive(byte,plugin) = "iease.cma"
+  archive(native,plugin) = "iease.cmxs"
+)
+
+package "itimed" (
+  description = "Int values with Timeline"
+  exists_if = "itimed.cma"
+  requires = "iease"
+
+  archive(byte) = "itimed.cma"
+  archive(native) = "itimed.cmxa"
+  archive(plugin,byte) = "itimed.cma"
+  archive(plugin,native) = "itimed.cmxs"
+)
+

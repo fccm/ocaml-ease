@@ -1,0 +1,15 @@
+=== How to compile and install ===
+
+0) Go in the directory of the implementation that you want:
+$ cd src-float/
+$ cd src-int/
+
+1) to compile the sources to bytecode:
+$ make lib
+
+2) to compile the sources to native code:
+$ make opt
+
+3) install using findlib (requires that you already installed it):
+$ make findinstall
+

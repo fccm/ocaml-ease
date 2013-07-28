@@ -1,0 +1,23 @@
+description = "Managing evolution of float values over time as float"
+version = "@VERSION@"
+
+package "fease" (
+  description = "Easing functions for floats"
+  exists_if = "fEase.cma"
+
+  archive(byte) = "fEase.cma"
+  archive(native) = "fEase.cmxa"
+  archive(byte,plugin) = "fEase.cma"
+  archive(native,plugin) = "fEase.cmxs"
+)
+
+package "ftimed" (
+  description = "Float values with Timeline"
+  exists_if = "fTimed.cma"
+
+  archive(byte) = "fTimed.cma"
+  archive(native) = "fTimed.cmxa"
+  archive(plugin,byte) = "fTimed.cma"
+  archive(plugin,native) = "fTimed.cmxs"
+)
+
