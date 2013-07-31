@@ -3,22 +3,21 @@ version = "@VERSION@"
 
 package "iease" (
   description = "Easing functions for ints"
-  exists_if = "iease.cma"
+  exists_if = "iEase.cma"
 
-  archive(byte) = "iease.cma"
-  archive(native) = "iease.cmxa"
-  archive(byte,plugin) = "iease.cma"
-  archive(native,plugin) = "iease.cmxs"
+  archive(byte) = "iEase.cma"
+  archive(native) = "iEase.cmxa"
+  archive(byte,plugin) = "iEase.cma"
+  archive(native,plugin) = "iEase.cmxs"
 )
 
 package "itimed" (
   description = "Int values with Timeline"
-  exists_if = "itimed.cma"
-  requires = "iease"
+  exists_if = "iTimed.cma"
 
-  archive(byte) = "itimed.cma"
-  archive(native) = "itimed.cmxa"
-  archive(plugin,byte) = "itimed.cma"
-  archive(plugin,native) = "itimed.cmxs"
+  archive(byte) = "iTimed.cma"
+  archive(native) = "iTimed.cmxa"
+  archive(plugin,byte) = "iTimed.cma"
+  archive(plugin,native) = "iTimed.cmxs"
 )
 
