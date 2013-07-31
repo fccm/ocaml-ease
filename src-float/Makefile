@@ -9,9 +9,10 @@ OCAML_DIR := $(shell $(OCAMLC) -where)
 DOC_DIR := doc
 MKDIR := mkdir -p
 
-.PHONY: all opt
-all: fEase.cma  fTimed.cma  fEaseBz.cma
-opt: fEase.cmxa fTimed.cmxa fEaseBz.cmxa
+.PHONY: all lib opt
+all: lib opt
+lib: fEase.cma  fTimed.cma
+opt: fEase.cmxa fTimed.cmxa
 
 .SECONDARY:
 
@@ -47,7 +48,7 @@ findinstall: META fEase.cma
 .PHONY: doc
 doc:
 	$(MKDIR) $(DOC_DIR)
-	$(OCAMLDOC) -d $(DOC_DIR) -html fEase.mli fTimed.mli fEaseBz.mli
+	$(OCAMLDOC) -d $(DOC_DIR) -html fEase.mli fTimed.mli
 
 .PHONY: cleandoc
 cleandoc:
