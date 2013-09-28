@@ -10,6 +10,9 @@ $ make lib
 2) to compile the sources to native code:
 $ make opt
 
-3) install using findlib (requires that you already installed it):
+3-a) install using findlib (requires that you already installed it):
 $ make findinstall
+
+3-b) install using the install command line utility
+$ make manualinstall
 

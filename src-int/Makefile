@@ -1,22 +1,30 @@
-OCAML := ocaml
-OCAMLC := ocamlc -g
-OCAMLOPT := ocamlopt -g
-OCAMLDOC := ocamldoc
-OCAMLFIND := ocamlfind
-VERSION := $(shell date --iso)
+LIBDIR = iease
+OCAML = ocaml
+OCAMLC = ocamlc -g
+OCAMLOPT = ocamlopt -g
+OCAMLDOC = ocamldoc
+OCAMLMKLIB = ocamlmklib
+OCAMLFIND = ocamlfind
+OCAMLDIR = $(shell $(OCAMLC) -where)
+VERSION = $(shell date --iso)
+DESTDIR = $(OCAMLDIR)/$(LIBDIR)
+DOC_DIR = doc
+MKDIR = mkdir -p
 
-OCAML_DIR := $(shell $(OCAMLC) -where)
-DOC_DIR := doc
-MKDIR := mkdir -p
+INSTALL_CMD = install
+INSTALL_FILES = $(INSTALL_CMD) -m 0644
+INSTALL_EXE = $(INSTALL_CMD) -m 0755
+INSTALL_DIR = $(INSTALL_CMD) -d
 
-.PHONY: all opt
-all: iEase.cma  iTimed.cma
+.PHONY: all lib opt
+all: lib opt
+lib: iEase.cma  iTimed.cma
 opt: iEase.cmxa iTimed.cmxa
 
 .SECONDARY:
 
 %.cmi: %.mli
-	$(OCAMLC) -c -o $@ $<
+	$(OCAMLC) -c $<
 
 %.cmo: %.ml %.cmi
 	$(OCAMLC) -c $<
@@ -42,7 +50,13 @@ META: META.in
 
 .PHONY: findinstall
 findinstall: META iEase.cma
-	$(OCAMLFIND) install iease META *.cm[iax] *.cmx[as] *.mli *.a
+	$(OCAMLFIND) install $(LIBDIR) META *.a *.cm[iatx] *.cmx[as] *.mli
+
+.PHONY: manualinstall
+manualinstall: META iEase.cma
+	$(INSTALL_DIR) $(DESTDIR)
+	$(INSTALL_FILES) META *.a *.cm[iatx] *.cmx[a] *.mli $(DESTDIR)
+	$(INSTALL_EXE) *.cmx[s] $(DESTDIR)
 
 .PHONY: doc
 doc:
@@ -51,9 +65,9 @@ doc:
 
 .PHONY: cleandoc
 cleandoc:
-	$(RM) -r doc
+	$(RM) -r $(DOC_DIR)
 
 .PHONY: clean
 clean:
-	$(RM) *.cm[ioxa] *.[oa] *.cmx[as] *.opt *.exe *.byte
+	$(RM) *.cm[iotxa] *.[oa] *.cmx[as] *.opt *.exe *.byte
 
