@@ -38,6 +38,8 @@ type t_x6 = t * t * t * t * t * t
 type t_x7 = t * t * t * t * t * t * t
 type t_x8 = t * t * t * t * t * t * t * t
 type t_x9 = t * t * t * t * t * t * t * t * t
+type t_xa = t array
+type t_xl = t list
 
 type t1 = t_x1 timed
 type t2 = t_x2 timed
@@ -48,6 +50,8 @@ type t6 = t_x6 timed
 type t7 = t_x7 timed
 type t8 = t_x8 timed
 type t9 = t_x9 timed
+type ta = t_xa timed
+type tl = t_xl timed
 
 
 (* interpolation functions *)
@@ -131,6 +135,30 @@ let inter9 t t1 t2 (a1,b1,c1,d1,e1,f1,g1,h1,i1) (a2,b2,c2,d2,e2,f2,g2,h2,i2) =
     ((h2 - h1) * tn) / ti + h1,
     ((i2 - i1) * tn) / ti + i1 )
 
+let intera t t1 t2 ar1 ar2 =
+  let n1 = Array.length ar1
+  and n2 = Array.length ar2 in
+  if n1 <> n2
+  then invalid_arg "ITimed.intera: arrays of different length" else
+  let ti = t2 - t1
+  and tn = t - t1 in
+  Array.init n1 (fun i ->
+    let v1 = Array.unsafe_get ar1 i
+    and v2 = Array.unsafe_get ar2 i in
+    ( ((v2 - v1) * tn) / ti + v1 )
+  )
+
+let interl t t1 t2 lst1 lst2 =
+  let ti = t2 - t1
+  and tn = t - t1 in
+  try
+    List.map2 (fun v1 v2 ->
+      ( ((v2 - v1) * tn) / ti + v1 )
+    ) lst1 lst2
+  with
+  | Invalid_argument "List.map2" ->
+      invalid_arg "ITimed.interl: lists of different length"
+
 
 (* timeline functions *)
 
@@ -161,6 +189,8 @@ let get_val6 t v = get_val inter6 t v
 let get_val7 t v = get_val inter7 t v
 let get_val8 t v = get_val inter8 t v
 let get_val9 t v = get_val inter9 t v
+let get_vala t v = get_val intera t v
+let get_vall t v = get_val interl t v
 
 
 module Labels = struct
@@ -182,6 +212,8 @@ let get_val6 ~t v = get_val6 t v
 let get_val7 ~t v = get_val7 t v
 let get_val8 ~t v = get_val8 t v
 let get_val9 ~t v = get_val9 t v
+let get_vala ~t v = get_vala t v
+let get_vall ~t v = get_vall t v
 
 let inter1 ~t ~t1 ~t2 ~v1 ~v2 = inter1 t t1 t2 v1 v2
 let inter2 ~t ~t1 ~t2 ~v1 ~v2 = inter2 t t1 t2 v1 v2
@@ -192,5 +224,7 @@ let inter6 ~t ~t1 ~t2 ~v1 ~v2 = inter6 t t1 t2 v1 v2
 let inter7 ~t ~t1 ~t2 ~v1 ~v2 = inter7 t t1 t2 v1 v2
 let inter8 ~t ~t1 ~t2 ~v1 ~v2 = inter8 t t1 t2 v1 v2
 let inter9 ~t ~t1 ~t2 ~v1 ~v2 = inter9 t t1 t2 v1 v2
+let intera ~t ~t1 ~t2 ~v1 ~v2 = intera t t1 t2 v1 v2
+let interl ~t ~t1 ~t2 ~v1 ~v2 = interl t t1 t2 v1 v2
 
 end

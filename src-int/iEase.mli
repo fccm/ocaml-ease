@@ -9,6 +9,9 @@
 *)
 (** Easing *)
 
+(** The interval for calculations is not (0.0 .. 1.0) as usual,
+    but (0 .. 1000) because we're using integers here. *)
+
 (** {3 Linear} *)
 
 val linear : int -> int

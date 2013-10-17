@@ -39,6 +39,7 @@ type t_x7 = t * t * t * t * t * t * t
 type t_x8 = t * t * t * t * t * t * t * t
 type t_x9 = t * t * t * t * t * t * t * t * t
 type t_xa = t array
+type t_xl = t list
 
 type t1 = t_x1 timed
 type t2 = t_x2 timed
@@ -50,6 +51,7 @@ type t7 = t_x7 timed
 type t8 = t_x8 timed
 type t9 = t_x9 timed
 type ta = t_xa timed
+type tl = t_xl timed
 
 
 (** {3 Interpolation functions} *)
@@ -94,6 +96,10 @@ val intera :
   time -> time -> time ->
   t_xa -> t_xa -> t_xa
 
+val interl :
+  time -> time -> time ->
+  t_xl -> t_xl -> t_xl
+
 
 (** {3 Timeline functions} *)
 
@@ -115,6 +121,7 @@ val get_val7 : time -> t7 -> t_x7
 val get_val8 : time -> t8 -> t_x8
 val get_val9 : time -> t9 -> t_x9
 val get_vala : time -> ta -> t_xa
+val get_vall : time -> tl -> t_xl
 
 
 (** {3 Labeled functions} *)
@@ -141,6 +148,7 @@ val get_val7 : t:time -> t7 -> t_x7
 val get_val8 : t:time -> t8 -> t_x8
 val get_val9 : t:time -> t9 -> t_x9
 val get_vala : t:time -> ta -> t_xa
+val get_vall : t:time -> tl -> t_xl
 
 
 (** {3 Interpolation functions} *)
@@ -184,5 +192,9 @@ val inter9 :
 val intera :
   t:time -> t1:time -> t2:time ->
   v1:t_xa -> v2:t_xa -> t_xa
+
+val interl :
+  t:time -> t1:time -> t2:time ->
+  v1:t_xl -> v2:t_xl -> t_xl
 
 end
